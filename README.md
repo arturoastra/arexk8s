@@ -55,6 +55,18 @@ Access the API documentation using the following URL:
 http://ec2-3-13-25-109.us-east-2.compute.amazonaws.com/docs
 ```
 
+### Access to arex-presto catalog
+
+```shell
+kubectl exec -it $(kubectl get pods -n arex | grep prestodb-arex | awk '{print $1}') -c prestodb -n arex -- bash
+```
+#### Move into the catalog folder
+
+```shell
+cd /etc/presto/catalog/
+```
+
+
 These revised instructions provide clear titles and improved formatting to help users follow the steps more easily.
 ```
 
