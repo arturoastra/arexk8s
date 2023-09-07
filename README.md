@@ -5,6 +5,10 @@
 ### Display Deployment Status for the "arex" Namespace
 
 ```shell
+sudo su
+```
+
+```shell
 kubectl get deployments -n arex
 ```
 
