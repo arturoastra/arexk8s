@@ -19,6 +19,11 @@ NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 arexapi         1/1     1            1           12d
 prestodb-arex   1/1     1            1           12d
 ```
+### Restart COREDNS to allow internet access to the containers
+
+```shell
+kubectl -n kube-system rollout restart deployment coredns
+```
 
 ### Restart Deployments in the "arex" Namespace
 
