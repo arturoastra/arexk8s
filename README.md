@@ -2,33 +2,17 @@
 
 ## Instructions
 
-### Display Deployment Status for the "arex" Namespace
-
-```shell
-sudo su
-```
-
-```shell
-kubectl get deployments -n arex
-```
-
-Expected Output:
-
-```shell
-NAME            READY   UP-TO-DATE   AVAILABLE   AGE
-arexapi         1/1     1            1           12d
-prestodb-arex   1/1     1            1           12d
-```
-### Restart COREDNS to allow internet access to the containers
-
-```shell
-kubectl -n kube-system rollout restart deployment coredns
-```
 
 ### Restart Deployments in the "arex" Namespace
 
 ```shell
 kubectl -n arex rollout restart deployment prestodb-arex
+```
+
+### Restart COREDNS to allow internet access to the containers
+
+```shell
+kubectl -n kube-system rollout restart deployment coredns
 ```
 
 ### Stop Port Forwarding
@@ -46,6 +30,24 @@ To restart port forwarding for services in the "arex" namespace, use the followi
 ```shell
 nohup kubectl port-forward svc/arexapi -n arex 80:80 --address=0.0.0.0 &>/dev/null &
 nohup kubectl port-forward svc/prestodb-arex -n arex 8080:8080 --address=0.0.0.0 &>/dev/null &
+```
+
+### Display Deployment Status for the "arex" Namespace
+
+```shell
+sudo su
+```
+
+```shell
+kubectl get deployments -n arex
+```
+
+Expected Output:
+
+```shell
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+arexapi         1/1     1            1           12d
+prestodb-arex   1/1     1            1           12d
 ```
 
 ### Validate That Port Forwarding Is Running
