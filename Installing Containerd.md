@@ -1,8 +1,6 @@
 Installing Containerd
 =====================
 
-The SLATE platform uses `containerd` as the container run-time. Complete the following steps to install and configure `containerd` for your cluster.
-
 Load Kernel Modules
 -------------------
 
