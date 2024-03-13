@@ -64,5 +64,3 @@ Finally, enable `containerd` and apply the changes:
     systemctl enable --now containerd && \
     systemctl restart containerd
     
-
-[Next Page »](/docs/cluster/manual/kubernetes.html)
