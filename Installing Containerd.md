@@ -8,7 +8,7 @@ Load Kernel Modules
 
 Specify and load the following kernel module dependencies:
 
-Copy
+
 
     cat <<EOF | tee /etc/modules-load.d/containerd.conf
     overlay
