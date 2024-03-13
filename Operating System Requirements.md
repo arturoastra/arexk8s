@@ -29,7 +29,7 @@ Disable firewalld
 In order to properly communicate with other devices within the cluster, `firewalld` must be disabled:
 
 ```shell
-    systemctl disable --now firewalld
+systemctl disable --now firewalld
 ```
 
 Disable root login over SSH
