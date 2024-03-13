@@ -170,7 +170,6 @@ Initialize the Kubernetes cluster with Kubeadm
 
 We want to initialize our cluster with the pod network CIDR specifically set to `192.168.0.0/16` as this is the default range utilized by the Calico network plugin. If needed, it is possible to set a different [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) range during `kubeadm init` and configure Calico to use that range. Instructions for configuring Calico for a different IP range is noted below in [Pod Network](#pod-network).
 
-Copy
 
     kubeadm init --pod-network-cidr=192.168.0.0/16
     
@@ -180,7 +179,6 @@ KubeConfig
 
 If you want to permanently enable `kubectl` access for the `root` account, you will need to copy the Kubernetes admin configuration to your home directory as shown below.
 
-Copy
 
     mkdir -p $HOME/.kube && \
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && \
@@ -203,14 +201,12 @@ If you are running a single-node SLATE cluster, you’ll want to remove the `NoS
 
 To remove the Control Plane taint:
 
-Copy
 
     kubectl taint nodes --all node-role.kubernetes.io/control-plane:NoSchedule-
     
 
 You might want to adjust the above command based on the role your Control Plane node holds. You can find this out by running:
 
-Copy
 
     kubectl get nodes
     
@@ -224,28 +220,24 @@ In order to enable Pods to communicate with the rest of the cluster, you will ne
 
 To install Calico, you will simply need to apply the appropriate Kubernetes manifests beginning with the operator:
 
-Copy
 
     kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.3/manifests/tigera-operator.yaml
     
 
 If you haven’t changed the default IP range then create the boilerplate custom resources manifest:
 
-Copy
 
     kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.3/manifests/custom-resources.yaml
     
 
 If you have changed the IP range to anything other than `192.168.0.0/16` in the `kubeadm init` command above, you will need to first download the boilerplate [custom-resources.yaml](https://github.com/projectcalico/calico/blob/master/manifests/custom-resources.yaml) file from Project Calico on GitHub, then update its IP range under `spec/calicoNetwork/ipPools/blockSize` and `CIDR`. Finally, create the custom resources manifest:
 
-Copy
 
     kubectl create -f /path/to/custom-resources.yaml
     
 
 After approximately five minutes, your master node should be ready. You can check with `kubectl get nodes`:
 
-Copy
 
     [root@your-node ~]# kubectl get nodes
     NAME                           STATUS   ROLES                  AGE     VERSION
@@ -263,7 +255,6 @@ Installing and configuring MetalLB is done in three steps: installation, configu
 
 Run this command to install MetalLB:
 
-Copy
 
     METALLB_VERSION=0.13.12 && \
     kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v${METALLB_VERSION}/config/manifests/metallb-native.yaml
@@ -273,7 +264,6 @@ Copy
 
 The following command creates an IP Address Pool file. Replace the addresses in this IPAddressPool configuration with the available IP addresses for your cluster. As noted in the example, you can specify a range with a CIDR or a hyphen. You may configure more than one range of IP addresses. The example configures two ranges (make sure to remove the second range if you only need one).
 
-Copy
 
     cat <<EOF > /tmp/metallb-ipaddrpool.yml
     apiVersion: metallb.io/v1beta1
@@ -290,7 +280,6 @@ Copy
 
 You can now apply the configuration file to Kubernetes:
 
-Copy
 
     kubectl create -f /tmp/metallb-ipaddrpool.yml
     
@@ -299,7 +288,6 @@ Copy
 
 Once configured, we need to tell MetalLB how to advertise the IP addresses in the pool. In this case we are configuring the pool to use Layer 2 advertisement. [MetalLB also supports BGP](https://metallb.org/configuration/_advanced_bgp_configuration/).
 
-Copy
 
     cat <<EOF > /tmp/metallb-ipaddrpool-advert.yml
     apiVersion: metallb.io/v1beta1
@@ -315,7 +303,6 @@ Copy
 
 Apply the advertisement file to Kubernetes:
 
-Copy
 
     kubectl create -f /tmp/metallb-ipaddrpool-advert.yml
     
@@ -328,4 +315,3 @@ You can run a Kubernetes cluster on OpenStack VMs, and use MetalLB as the load b
 
 By design, MetalLB’s L2 mode looks like an ARP spoofing attempt to OpenStack, because we’re announcing IP addresses that OpenStack doesn’t know about. There’s currently no way to make OpenStack cooperate with MetalLB here, so we have to turn off the spoofing protection entirely.
 
-[Next Page »](/docs/cluster/manual/slate-worker-node.html)
