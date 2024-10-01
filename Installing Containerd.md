@@ -1,8 +1,6 @@
 Installing Containerd
 =====================
 
-Here are the instructions in English with the steps renumbered, starting from Step 1:
-
 ### Step 1: Turn Off Swap (all nodes)
 To permanently disable swap, we need to comment out the swap partition in `/etc/fstab`:
 
@@ -126,5 +124,3 @@ yum install -y vim-enhanced
 yum install -y git
 yum install -y curl
 ```
-
-This restructuring renumbers the steps starting from Step 1, as requested, while keeping the instructions clear for execution.
