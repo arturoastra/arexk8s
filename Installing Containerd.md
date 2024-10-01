@@ -98,8 +98,10 @@ Edit the `/etc/containerd/config.toml` file and locate the following section:
 Change the value of `SystemdCgroup` to `true`. The section should look like this:
 
 ```
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-        SystemdCgroup = true
+CONTAINDERD_CONFIG_PATH=/etc/containerd/config.toml && \
+rm "${CONTAINDERD_CONFIG_PATH}" && \
+containerd config default > "${CONTAINDERD_CONFIG_PATH}" && \
+sed -i "s/SystemdCgroup = false/SystemdCgroup = true/g"  "${CONTAINDERD_CONFIG_PATH}"
 ```
 
 Restart `containerd` to apply the changes:
