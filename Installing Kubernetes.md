@@ -45,7 +45,7 @@ Installing Kubernetes
    Initialize Kubernetes control plane on the master node:
 
    ```bash
-   sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+   sudo kubeadm init --apiserver-advertise-address=10.0.0.1 --pod-network-cidr=10.244.0.0/16
    ```
 
 3. **Configure kubeconfig**  
